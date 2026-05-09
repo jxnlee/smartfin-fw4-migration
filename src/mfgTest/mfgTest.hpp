@@ -100,14 +100,6 @@ private:
     static MFG_TEST_RESULT_t imu_test(void);
 
     /**
-     * @brief Tests the cellular connection
-     *
-     * @return MfgTest::MFG_TEST_RESULT_t::PASS if passed, otherwise
-     * MfgTest::MFG_TEST_RESULT_t::FAIL
-     */
-    static MFG_TEST_RESULT_t cellular_test(void);
-
-    /**
      * @brief Tests the GPS unit
      *
      * @return MfgTest::MFG_TEST_RESULT_t::PASS if passed, otherwise

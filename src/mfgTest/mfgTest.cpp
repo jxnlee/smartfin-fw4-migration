@@ -16,7 +16,6 @@ MfgTest::mfg_test_entry MfgTest::MFG_TEST_TABLE[] = {
     {&MfgTest::wet_dry_sensor_test, "Wet/Dry Sensor", MfgTest::PENDING},
     {&MfgTest::temperature_sensor_test, "Temperature Sensor", MfgTest::PENDING},
     {&MfgTest::imu_test, "IMU", MfgTest::PENDING},
-    {&MfgTest::cellular_test, "Cellular", MfgTest::PENDING},
     {&MfgTest::gps_test, "GPS", MfgTest::PENDING},
     {nullptr, nullptr, MfgTest::PENDING}};
 
@@ -353,37 +352,6 @@ MfgTest::MFG_TEST_RESULT_t MfgTest::imu_test(void)
     {
         return MfgTest::FAIL;
     }
-    return MfgTest::PASS;
-}
-
-MfgTest::MFG_TEST_RESULT_t MfgTest::cellular_test(void)
-{
-    SF_OSAL_printf("Running cellular test" __NL__);
-    sf::cloud::initialize_counter();
-    if (!sf::cloud::is_connected())
-    {
-        if (sf::cloud::wait_connect(MANUFACTURING_CELL_TIMEOUT_MS))
-        {
-            SF_OSAL_printf("Fail" __NL__);
-            return MfgTest::FAIL;
-        }
-    }
-    Particle.syncTime();
-    system_tick_t start = millis();
-    while (millis() < start + MANUFACTURING_CELL_TIMEOUT_MS || !Particle.syncTimeDone())
-    {
-        delay(1);
-    }
-
-    #ifdef PARTICLE
-        // put it as elapsed time and look into what the time measure
-        json_writer.name("cellular").beginObject();
-            json_writer.name("time").value(millis());
-        json_writer.endObject();
-    #endif
-
-    SF_OSAL_printf("Pass" __NL__);
-    sf::cloud::wait_disconnect(MANUFACTURING_CELL_TIMEOUT_MS);
     return MfgTest::PASS;
 }
 
