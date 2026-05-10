@@ -12,7 +12,7 @@ def run_test():
         time.sleep(5)
 
         print("Opening CLI...")
-        ser.write(b"#CLI")
+        ser.write(b"#CLI\r\n")
         time.sleep(1)
 
         print("Running MFG test...")
