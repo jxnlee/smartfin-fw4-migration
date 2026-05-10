@@ -8,12 +8,16 @@ TIMEOUT     = 30
 
 def run_test():
     try:
-        ser = serial.Serial(PORT, BAUDRATE, timeout=5)
-        time.sleep(5)
+        ser = serial.Serial(PORT, BAUDRATE, timeout=2)
 
         print("Opening CLI...")
         ser.write(b"#CLI\r\n")
-        time.sleep(1)
+        
+        start_time = time.time()
+        while time.time() - start_time < 5:
+            if ser.in_waiting > 0:
+                line = ser.readline().decode('utf-8', errors='ignore')
+                print(line, end='')
 
         print("Running MFG test...")
         ser.write(b"12\r\n")
