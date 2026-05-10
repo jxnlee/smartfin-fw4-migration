@@ -13,6 +13,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
+        clean: true
         submodules: recursive
     
     - name: Compile application
@@ -32,6 +33,22 @@ jobs:
       id: flash
       run: |
         particle flash --usb ${{ steps.compile.outputs.firmware-path }}
+    
+    - name: Wait for Device Initialization
+      run: sleep 30
+    
+    - name: Run Manufacturing Tests
+      id: mfg_test
+      run: python3 run_mfg_test.py
 
+    - name: Upload Test Results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: mfg_test_results
+        path: mfg_test_results.log
+        retention-days: 7
+
+        
       
       
