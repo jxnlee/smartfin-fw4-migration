@@ -19,7 +19,7 @@ def run_test():
                 line = ser.readline().decode('utf-8', errors='ignore')
                 print(line, end='')
 
-        print("Running MFG test...")
+        print("\nRunning MFG test...")
         ser.write(b"12\r\n")
 
         with open("mfg_test_results.log", "w") as f:
