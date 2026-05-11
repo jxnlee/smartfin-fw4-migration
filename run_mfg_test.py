@@ -8,7 +8,7 @@ TIMEOUT     = 30
 
 def run_test():
     ser = None
-    connection_timeout = 60  # 1 minute timeout for connection
+    connection_timeout = 180  # 3 minute timeout for connection
     retry_interval = 5       # Retry every 5 seconds
     start_time = time.time()
     
