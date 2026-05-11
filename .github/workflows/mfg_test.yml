@@ -35,7 +35,7 @@ jobs:
         particle flash --usb ${{ steps.compile.outputs.firmware-path }}
     
     - name: Wait for Device Initialization
-      run: sleep 15
+      run: sleep 30
     
     - name: Run Manufacturing Tests
       id: mfg_test
